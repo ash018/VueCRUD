@@ -22,7 +22,9 @@ export default {
     props: ['fid'],
     data(){
         return {
-          fieldtype: {}
+          fieldtype: {
+            fieldtype_name: this.$route.query.q
+          }
         }
     },
     created: function()

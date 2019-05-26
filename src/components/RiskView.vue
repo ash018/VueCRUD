@@ -24,7 +24,7 @@
                     
                     <td>
                        
-                        <a target="_blank" class="btn btn-success" v-bind:href="'/edit/'+ risk.risk_id" >Edit</a>
+                        <a target="_blank" class="btn btn-success" v-bind:href="'/edit/'+ risk.risk_id + '?q='+risk.risk_name" >Edit</a>
                        
                     </td>
                     

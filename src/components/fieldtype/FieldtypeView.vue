@@ -23,7 +23,7 @@
                     <td>{{ fieldtype.fieldtype_name }}</td>
                     
                     <td>
-                        <a target="_blank" class="btn btn-success" v-bind:href="'/editfield/'+ fieldtype.fieldtype_id" >Edit</a>
+                        <a target="_blank" class="btn btn-success" v-bind:href="'/editfield/'+ fieldtype.fieldtype_id+ '?q='+fieldtype.fieldtype_name" >Edit</a>
                     </td>
                     
                     <td><a target="_blank" class="btn btn-danger" v-bind:href="'/deletefield/'+ fieldtype.fieldtype_id" >Delete</a></td>

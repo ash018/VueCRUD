@@ -1,3 +1,4 @@
+
 <template>
   <div class="container">
     <h1>Edit Risk</h1>
@@ -6,7 +7,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Risk Name</label>
-            <input type="text" class="form-control" v-model="risk.risk_name"/>
+            <input type="text" id="EditVal" class="form-control"  v-model="risk.risk_name"/>
           </div>
         </div>
         </div>
@@ -21,21 +22,37 @@
 export default {
     props: ['riskid'],
     data(){
+
         return {
-          risk: {}
+          risk: {
+            risk_name: this.$route.query.q
+          },
+          name: 'hello',
         }
     },
     created: function()
     {
-        this.fetchRisk();
+        //this.fetchRisk();
         console.log(this.riskid);
+    },
+
+    watch: {
+        risk() {
+             let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+            this.axios.get(uri, this.risk).then((response) => {
+               console.log(response.data.risk_name);
+               this.risk.risk_name = response.data.risk_name;
+               
+            });
+       }
     },
     
     methods: {
        fetchRisk() {
              let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
             this.axios.get(uri, this.risk).then((response) => {
-               console.log(response);
+               console.log(response.data.risk_name);
+               this.risk.risk_name = response.data.risk_name;
                
             });
        },
