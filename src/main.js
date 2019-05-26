@@ -7,6 +7,11 @@ import RiskView from './components/RiskView.vue';
 import AddRisk from './components/AddRisk.vue';
 import EditRisk from './components/EditRisk.vue';
 import DeleteRisk from './components/DeleteRisk.vue';
+import AddField from './components/fieldtype/AddField.vue';
+import FieldtypeView from './components/fieldtype/FieldtypeView.vue';
+import EditField from './components/fieldtype/EditField.vue';
+import DeleteField from './components/fieldtype/DeleteField.vue';
+
 
 Vue.use(VueAxios,axios);
 Vue.use(VueRouter);
@@ -40,6 +45,32 @@ const routes = [
     name: 'delete',
     path: '/delete/:riskid',
     component: DeleteRisk,
+    props: true,
+  },
+
+  {
+        name: 'addfield',
+        path: '/addfield',
+        component: AddField
+  },
+
+  {
+    name: 'fieldtype',
+    path: '/fieldtype',
+    component: FieldtypeView
+  },
+
+  {
+    name: 'editfield',
+    path: '/editfield/:fid',
+    component: EditField,
+    props: true,
+  },
+
+  {
+    name: 'deletefield',
+    path: '/deletefield/:fid',
+    component: DeleteField,
     props: true,
   },
 

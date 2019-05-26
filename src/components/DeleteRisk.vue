@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Edit Risk</h1>
+    <h1>Delete Risk</h1>
     <form v-on:submit.prevent="deleteRisk">
       <div class="row">
         <div class="col-md-6">
