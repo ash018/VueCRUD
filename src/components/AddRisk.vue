@@ -29,7 +29,7 @@ export default {
     },
     methods: {
        addRisk() {
-             let uri = 'http://risk-backend.herokuapp.com/api/risk/';
+             let uri = 'https://risk-backend.herokuapp.com/api/risk/';
             this.axios.post(uri, this.risk).then((response) => {
                console.log(response);
                this.$router.push("/risk");

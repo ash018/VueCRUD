@@ -57,7 +57,7 @@
         methods: {
             fetchItems()
             {
-              let uri = 'http://risk-backend.herokuapp.com/api/fieldtype';
+              let uri = 'https://risk-backend.herokuapp.com/api/fieldtype';
               this.axios.get(uri).then((response) => {
                   this.fieldtypes = response.data;
               });
