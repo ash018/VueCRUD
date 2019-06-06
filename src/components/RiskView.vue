@@ -59,14 +59,14 @@
         methods: {
             fetchItems()
             {
-              let uri = 'http://risk-backend.herokuapp.com/api/risk';
+              let uri = 'https://risk-backend.herokuapp.com/api/risk';
               this.axios.get(uri).then((response) => {
                   this.risks = response.data;
               });
             },
             updateRisk: function() {
               this.loading = true;
-              this.axios.put('http://risk-backend.herokuapp.com/api/risk/${this.currentRisk.risk_id}/',this.currentRisk)
+              this.axios.put('https://risk-backend.herokuapp.com/api/risk/${this.currentRisk.risk_id}/',this.currentRisk)
                   .then((response) => {
                     this.loading = false;
                     this.currentRisk = response.data;
