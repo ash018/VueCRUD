@@ -32,14 +32,14 @@ export default {
     
     methods: {
        fetchRisk() {
-             let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+             let uri = 'http://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
             this.axios.get(uri, this.risk).then((response) => {
                console.log(response);
                
             });
        },
        deleteRisk(){
-            let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+            let uri = 'http://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
             this.axios.delete(uri, this.risk).then((response) => {
                console.log(response);
                this.$router.push("/risk");

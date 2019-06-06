@@ -2,8 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
 import axios from 'axios';
-import JQuery from 'jquery';
-let $ = JQuery;
+
 import VueAxios from 'vue-axios';
 import RiskView from './components/RiskView.vue';
 import AddRisk from './components/AddRisk.vue';
@@ -22,6 +21,7 @@ Vue.config.devtools = true;
 //Vue.loadScript("./assets/js/jquery-3.3.1.min.js");
 //Vue.loadScript("./assets/js/bootstrap.min.js");
 
+const BASE_URL = "http://127.0.0.1:8000/api/";
 
 const routes = [
   {

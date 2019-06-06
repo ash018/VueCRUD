@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h1>Create A Field Type</h1>
+    <router-link :to="{name: 'fieldtype'}">
+      <button class="btn btn-default">Show List</button>
+    </router-link>
     <form v-on:submit.prevent="addFieldtype">
       <div class="row">
         <div class="col-md-6">
@@ -26,7 +29,7 @@ export default {
     },
     methods: {
        addFieldtype() {
-             let uri = 'http://127.0.0.1:8000/api/fieldtype/';
+             let uri = 'http://risk-backend.herokuapp.com/api/fieldtype/';
              this.axios.post(uri, this.fieldtype).then((response) => {
                console.log(response);
                this.$router.push("/fieldtype");

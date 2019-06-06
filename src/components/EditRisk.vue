@@ -38,7 +38,7 @@ export default {
 
     watch: {
         risk() {
-             let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+             let uri = 'http://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
             this.axios.get(uri, this.risk).then((response) => {
                console.log(response.data.risk_name);
                this.risk.risk_name = response.data.risk_name;
@@ -49,7 +49,7 @@ export default {
     
     methods: {
        fetchRisk() {
-             let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+             let uri = 'http://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
             this.axios.get(uri, this.risk).then((response) => {
                console.log(response.data.risk_name);
                this.risk.risk_name = response.data.risk_name;
@@ -57,7 +57,7 @@ export default {
             });
        },
        updateRisk(){
-            let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+            let uri = 'http://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
             this.axios.put(uri, this.risk).then((response) => {
                console.log(response);
                this.$router.push("/risk");
