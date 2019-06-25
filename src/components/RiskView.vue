@@ -43,10 +43,14 @@
                     <td>{{ risk.risk_name }}</td>
                     
                     <td>
-                        <a target="_blank" class="btn btn-success" :data-node=" risk.risk_id " v-on:click="edit(risk.risk_id)" >Edit</a>
+                        <a target="_blank" class="btn btn-success" :data-node=" risk.risk_id " v-on:click="takeClickEdit(risk.risk_id)" >Edit</a>
                     </td>
                     
-                    <td><a target="_blank" class="btn btn-danger" v-bind:href="'/delete/'+ risk.risk_id" >Delete</a></td>
+                    <td><a target="_blank" class="btn btn-danger" v-on:click="takeClickDelete(risk.risk_id)" >Delete</a></td>
+
+                    <td>
+                        <a target="_blank" class="btn btn-primary" :data-node=" risk.risk_id " v-on:click="addField(risk.risk_id)" style="color:white;">Add Field</a>
+                    </td>
                     
                 </tr>
             </tbody>
@@ -84,7 +88,7 @@
                           </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            
                         </div>
                     </div>
                 </div>
@@ -94,7 +98,96 @@
             </transition>
           </div>
 
-  
+          <div v-if="showModalDel">
+            <transition name="modal">
+              <div class="modal-mask">
+                <div class="modal-wrapper">
+
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Risk</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" @click="showModalDel = false">&times;</span>
+                            </button>
+                        </div>
+                        <div class="container">
+                            
+                            <form v-on:submit.prevent="deleteRisk">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label>Sure Want to delete? </label>
+                                    <input type="text" id="EditVal" class="form-control" v-model="risk.risk_name" readonly/>
+                                  </div>
+                                </div>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                  <button class="btn btn-danger" >Delete Risk</button>
+                                </div>
+                            </form>
+                          </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @click="showModalDel = false">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+              </div>
+            </transition>
+          </div>
+
+          <div v-if="addFieldModal">
+            <transition name="modal">
+              <div class="modal-mask">
+                <div class="modal-wrapper">
+
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Select Field & Add a Label</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" @click="addFieldModal = false">&times;</span>
+                            </button>
+                        </div>
+                        <div class="container">
+                            
+                            <form v-on:submit.prevent="submitField">
+                              <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" v-model="field.field_fieldtype_id">
+                                          <option disabled value="">Select Field Type</option>
+                                          <option v-for="fieldtype in fieldtypes" :key="fieldtype.fieldtype_id" v-bind:value="fieldtype.fieldtype_id">{{ fieldtype.fieldtype_name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Add Label" id="EditVal" class="form-control" v-model="field.field_label" />
+                                    </div>
+                                    
+                                  </div>
+                                
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                  <button class="btn btn-primary" >Add Field</button>
+                                </div>
+                            </form>
+                          </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+              </div>
+            </transition>
+          </div>
 
     </div>
 
@@ -111,10 +204,26 @@
             return{
                 risks: [],
                 showModal: false,
+                showModalDel: false,
+                addFieldModal: false,
                 riskid: '',
                 risk: {
                     risk_name: ''
                 },
+
+                fieldtype: {
+                    fieldtype_name: ''
+                },
+
+                field: {
+                    field_risk_id:'',
+                    field_label:'',
+                    field_fieldtype_id: ''
+                },
+
+
+
+                fieldtypes: [],
             }
         },
         created: function()
@@ -132,13 +241,13 @@
         methods: {
             fetchItems()
             {
-              let uri = 'https://risk-backend.herokuapp.com/api/risk';
+              let uri = 'http://127.0.0.1:8000/api/risk';
               this.axios.get(uri).then((response) => {
                   this.risks = response.data;
               });
             },
             updateRisk(){
-                let uri = 'https://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
+                let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
                 this.axios.put(uri, this.risk).then((response) => {
                    console.log(response);
                    this.$router.push("/risk");
@@ -147,16 +256,60 @@
                 this.showModal = false;
                 window.location.reload();
             },
-            edit(id){
+            takeClickEdit(id){
                 this.showModal = true;
-                let uri = 'https://risk-backend.herokuapp.com/api/risk/'+id+'/';
+                let uri = 'http://127.0.0.1:8000/api/risk/'+id+'/';
                 this.axios.get(uri, this.risk).then((response) => {
                 console.log(response.data.risk_name);
                 this.risk.risk_name = response.data.risk_name;
                 this.riskid = id;
             });
 
-            }
+            },
+
+            takeClickDelete(id){
+                this.showModalDel = true;
+                let uri = 'http://127.0.0.1:8000/api/risk/'+id+'/';
+                this.axios.get(uri, this.risk).then((response) => {
+                console.log(response.data.risk_name);
+                this.risk.risk_name = response.data.risk_name;
+                this.riskid = id;
+            });
+
+            },
+
+            deleteRisk(){
+                let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+                this.axios.delete(uri, this.risk).then((response) => {
+                   console.log(response);
+                   this.$router.push("/risk");
+                });
+
+                this.showModalDel = false;
+                window.location.reload();
+           },
+
+           addField(id){
+                this.addFieldModal = true;
+                let uri = 'http://127.0.0.1:8000/api/fieldtype/';
+                this.axios.get(uri, this.risk).then((response) => {
+                console.log(response.data);
+                this.fieldtypes = response.data;
+                this.field.field_risk_id = id;
+              });
+           },
+
+           submitField(){
+                let uri = "http://127.0.0.1:8000/api/field/";
+                
+                
+                this.axios.post(uri, this.field).then((response) => {
+                   console.log(response);
+                   this.addFieldModal = false;
+                   window.location.reload();
+                });
+                
+           }
 
         }
     }

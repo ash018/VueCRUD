@@ -29,7 +29,7 @@ export default {
     },
     methods: {
        addFieldtype() {
-             let uri = 'https://risk-backend.herokuapp.com/api/fieldtype/';
+             let uri = 'http://127.0.0.1:8000/api/fieldtype/';
              this.axios.post(uri, this.fieldtype).then((response) => {
                console.log(response);
                this.$router.push("/fieldtype");

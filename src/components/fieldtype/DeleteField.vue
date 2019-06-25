@@ -32,14 +32,14 @@ export default {
     
     methods: {
        fetchFieldType() {
-             let uri = 'https://risk-backend.herokuapp.com/api/fieldtype/'+this.fid+'/';
+             let uri = 'http://127.0.0.1:8000/api/fieldtype/'+this.fid+'/';
             this.axios.get(uri, this.fieldtype).then((response) => {
                console.log(response);
                
             });
        },
        deleteFieldType(){
-            let uri = 'https://risk-backend.herokuapp.com/api/fieldtype/'+this.fid+'/';
+            let uri = 'http://127.0.0.1:8000/api/fieldtype/'+this.fid+'/';
             this.axios.delete(uri, this.fieldtype).then((response) => {
                console.log(response);
                this.$router.push("/fieldtype");
