@@ -21,7 +21,7 @@ Vue.config.devtools = true;
 //Vue.loadScript("./assets/js/jquery-3.3.1.min.js");
 //Vue.loadScript("./assets/js/bootstrap.min.js");
 
-const BASE_URL = "http://127.0.0.1:8000/api/";
+//const BASE_URL = "https://risk-backend.herokuapp.com/api/";
 
 const routes = [
   {

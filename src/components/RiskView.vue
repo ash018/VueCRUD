@@ -417,13 +417,13 @@
         methods: {
             fetchItems()
             {
-              let uri = 'http://127.0.0.1:8000/api/risk';
+              let uri = 'https://risk-backend.herokuapp.com/api/risk';
               this.axios.get(uri).then((response) => {
                   this.risks = response.data;
               });
             },
             updateRisk(){
-                let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+                let uri = 'https://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
                 this.axios.put(uri, this.risk).then((response) => {
                    console.log(response);
                    this.$router.push("/risk");
@@ -434,7 +434,7 @@
             },
             takeClickEdit(id){
                 this.showModal = true;
-                let uri = 'http://127.0.0.1:8000/api/risk/'+id+'/';
+                let uri = 'https://risk-backend.herokuapp.com/api/risk/'+id+'/';
                 this.axios.get(uri, this.risk).then((response) => {
                 console.log(response.data.risk_name);
                 this.risk.risk_name = response.data.risk_name;
@@ -445,7 +445,7 @@
 
             takeClickDelete(id){
                 this.showModalDel = true;
-                let uri = 'http://127.0.0.1:8000/api/risk/'+id+'/';
+                let uri = 'https://risk-backend.herokuapp.com/api/risk/'+id+'/';
                 this.axios.get(uri, this.risk).then((response) => {
                 console.log(response.data.risk_name);
                 this.risk.risk_name = response.data.risk_name;
@@ -455,7 +455,7 @@
             },
 
             deleteRisk(){
-                let uri = 'http://127.0.0.1:8000/api/risk/'+this.riskid+'/';
+                let uri = 'https://risk-backend.herokuapp.com/api/risk/'+this.riskid+'/';
                 this.axios.delete(uri, this.risk).then((response) => {
                    console.log(response);
                    this.$router.push("/risk");
@@ -467,7 +467,7 @@
 
            addField(id){
                 this.addFieldModal = true;
-                let uri = 'http://127.0.0.1:8000/api/fieldtype/';
+                let uri = 'https://risk-backend.herokuapp.com/api/fieldtype/';
                 this.axios.get(uri, this.risk).then((response) => {
                 console.log(response.data);
                 this.fieldtypes = response.data;
@@ -476,7 +476,7 @@
            },
 
            submitField(){
-                let uri = "http://127.0.0.1:8000/api/field/";
+                let uri = "https://risk-backend.herokuapp.com/api/field/";
                 
                 
                 this.axios.post(uri, this.field).then((response) => {
@@ -489,7 +489,7 @@
 
            addPost(id){
                 this.addPostModal = true;
-                let uri = 'http://127.0.0.1:8000/api/cform/?risk_id='+id;
+                let uri = 'https://risk-backend.herokuapp.com/api/cform/?risk_id='+id;
                 this.axios.get(uri, this.customField).then((response) => {
                 
                 this.customField = response.data;
@@ -516,7 +516,7 @@
            },
 
            submitPost(){
-                let uri1 = "http://127.0.0.1:8000/api/maxpost/?risk_id="+this.riskid;
+                let uri1 = "https://risk-backend.herokuapp.com/api/maxpost/?risk_id="+this.riskid;
 
                  
                 
@@ -532,7 +532,7 @@
                       
 
                       
-                      let uri2 = 'http://127.0.0.1:8000/api/post/';
+                      let uri2 = 'https://risk-backend.herokuapp.com/api/post/';
                       for(j=0;j<this.posts.parent_id.length;j++){
                           this.post= {}
                           this.post.post_id = pId;
@@ -555,7 +555,7 @@
                       pId   = response.data.length + 1;
                       
                       
-                      let uri2 = 'http://127.0.0.1:8000/api/post/';
+                      let uri2 = 'https://risk-backend.herokuapp.com/api/post/';
                       
                       for(j=0;j<this.posts.parent_id.length;j++){
                           this.post= {}
@@ -582,7 +582,7 @@
 
            viewPost(id){
               this.viewPostModal = true;
-              let uri =  'http://127.0.0.1:8000/api/allpost/?risk_id='+id;
+              let uri =  'https://risk-backend.herokuapp.com/api/allpost/?risk_id='+id;
               this.labelArr=[];
               this.valueArr=[];
               this.finalValueArr=[];
